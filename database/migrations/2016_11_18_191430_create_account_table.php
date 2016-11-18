@@ -15,7 +15,7 @@ class CreateAccountTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id'); 
-            $table->integer('person_id') 
+            $table->integer('person_id'); 
             $table->integer('company_id')->nullable(); 
             $table->timestamps(); 
         });

@@ -13,9 +13,10 @@ class CreateProcessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('processes', function (Blueprint $table) {
             $table->increments('id'); 
             $table->string('name'); 
+            $table->string('class'); 
             $table->timestamps(); 
         });
     }

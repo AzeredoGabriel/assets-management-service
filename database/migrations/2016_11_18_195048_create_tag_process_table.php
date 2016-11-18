@@ -19,7 +19,7 @@ class CreateTagProcessTable extends Migration
             $table->integer('process_id'); 
             $table->timestamps(); 
 
-            $table->foreign('tag_id')->references('id')->on('tags')
+            $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('process_id')->references('id')->on('processes'); 
         });
     }
