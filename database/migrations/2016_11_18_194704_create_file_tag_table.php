@@ -13,7 +13,7 @@ class CreateFileTagTable extends Migration
      */
     public function up()
     {
-          Schema::create('file_tag', function (Blueprint $table) {
+        Schema::create('file_tag', function (Blueprint $table) {
             $table->increments('id'); 
             $table->integer('file_id'); 
             $table->integer('tag_id'); 

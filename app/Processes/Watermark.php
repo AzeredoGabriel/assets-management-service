@@ -1,18 +1,13 @@
 <?php
 
-namespace App\Processes\Watermark;
+namespace App\Processes;
 
-use App\Abstract\Processable; 
+use App\Abstracts\Processable; 
 
 class Watermark extends Processable
 {
 
-    /**
-     * métodos auxiliáres..
-     * ===================================
-     */
-
-    public function execute()
+    public function execute($file)
     {
         return true; 
     }

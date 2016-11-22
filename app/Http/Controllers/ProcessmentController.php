@@ -24,9 +24,9 @@ class ProcessmentController extends Controller
 			return "redireciona para home com mensagem"; 
 
 
-		$tag = new App\Tag; 
-		$file = new App\File; 
-		$process = new App\Process; 
+		$tag = new App\Tag(); 
+		$file = new App\File(); 
+		$process = new App\Process(); 
 
 		$tags = $tag->getTags( $req->input('tags') ); 
 
@@ -34,7 +34,7 @@ class ProcessmentController extends Controller
 
 		$processment_response = 	
 				$file->process( 
-					$file->getFiles( $req->file('file') ), 
+					$req->file('file'), 
 					$processments 
 				); 
 

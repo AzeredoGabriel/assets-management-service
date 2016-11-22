@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Abstract\Processable;
+use App\Abstracts\Processable;
 use App\Processes; 
 
 class Process extends Model
@@ -15,7 +15,7 @@ class Process extends Model
      */
     protected $fillable = [ 'name', 'class' ];
 
-    public function getProcessses( $tags )
+    public function getProcesses( $tags )
     {
     	/**
     	 * Verifica na base de dados quais processos essas tags se referem.. 
@@ -24,14 +24,16 @@ class Process extends Model
     	
     	$processes = array_map(function($process)
 		{
-			if (class_exists($process)) 
+  		    $class_name = "App\\Processes\\{$process}"; 
+
+        	if (class_exists($class_name)) 
 			{
-				$process = new $process; 
+          		$process = new $class_name;  
 
 				if (!$process instanceof Processable)
 				{
 					// grava um log com essa informação.. 
-					return false; 
+					throw new \Exception('Classe '.$class_name.' não é um processamento válido');
 				}
 
 				return $process; 
