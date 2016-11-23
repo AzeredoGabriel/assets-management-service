@@ -11,13 +11,31 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
 
+$factory->define(App\Person::class, function (Faker\Generator $faker) {
+
+	$faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
+    
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'cpf' => $faker->cpf(false),
+    ];
+});
+
+$factory->define(App\Company::class, function (Faker\Generator $faker) {
+    
+    $faker->addProvider(new Faker\Provider\pt_BR\Company($faker));
+    
+    return [
+        'name' => $faker->name,
+        'cnpj' => $faker->cnpj(false),
+    ];
+});
+
+$factory->define(App\Account::class, function (Faker\Generator $faker) {
+
+    return [
+        'person_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+        'company_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]) 
     ];
 });

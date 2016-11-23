@@ -17,28 +17,31 @@ class ProcessmentController extends Controller
 	public function process(Request $req)
 	{
 
-		if (!$req->hasFile('file'))
-			return "redireciona para home com mensagem"; 
+		$inputs = $req->input(); 
 
-		if (!$req->input('tags'))
-			return "redireciona para home com mensagem"; 
+		$params = [
+			"files" => array_get($inputs, "file", null), 
+			"tags" => array_get($inputs, "tags", null), 
+		];
 
+		if (!$params['files'] || !$params['tags'])
+			throw new Exception("Algum parâmetro necessário para o processamento não foi enviado.");
+	
 
 		$tag = new App\Tag(); 
 		$file = new App\File(); 
 		$process = new App\Process(); 
 
-		$tags = $tag->getTags( $req->input('tags') ); 
+		$tags = $tag->getTags($req->input('tags')); 
 
-		$processments = $process->getProcesses( $tags ); 
+		$processments = $process->getProcesses($tags); 
 
 		$processment_response = 	
 				$file->process( 
-					$req->file('file'), 
+					$params['files'], 
 					$processments 
 				); 
 
 		return view('processment.back', $processment_response); 
 	}
-
 }

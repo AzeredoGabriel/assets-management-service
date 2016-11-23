@@ -13,6 +13,11 @@ class File extends Model
      */
     protected $fillable = [ 'name', 'size', 'extention' ];
 
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag'); 
+    }
+   
     public function process($files, $processments)
     {
         $processed_files = []; 
@@ -21,8 +26,8 @@ class File extends Model
 
         foreach ($processments as $key => $process) {
     
-            $files = array_map(function($file) use ($process)
-            {
+            $files = array_map(function($file) use ($process) {
+                
                 return $process->execute($file); 
 
             }, $files); 
@@ -53,8 +58,5 @@ class File extends Model
     }
 
 
-    public function tags()
-    {
-    	return $this->belongsToMany('App\Tag'); 
-    }
+   
 }

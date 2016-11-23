@@ -13,6 +13,11 @@ class Tag extends Model
      */
     protected $fillable = [ 'name' ];
 
+    public function processes()
+    {
+        return $this->belongsToMany('App\Process');
+    }
+
 
     public function getTags($str_tags)
     {
@@ -22,18 +27,6 @@ class Tag extends Model
     	
     	$tags = explode(',', $str_tags); 
     	return $tags; 
-    }
-
-
-
-	/**
-	 * Relationships 
-	 * ================================
-	 */
-
-    public function processes()
-    {
-    	return $this->belongsToMany('App\Process');
     }
 
 }
