@@ -1,2 +1,4 @@
-# assets-management-service
-Sistema PaaS para gerenciamento de arquivos. 
+# assets-management-service (AMS)
+
+Serviço para gerenciamento de arquivos. 
+
