@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App; 
+use App\Models as Model; 
+
 
 class ProcessmentController extends Controller
 {
@@ -19,20 +20,24 @@ class ProcessmentController extends Controller
 
 		$inputs = $req->input(); 
 
+		if ($req->hasFile('files'))
+			$inputs['files'] = $req->file('files');
+ 
+
 		$params = [
-			"files" => array_get($inputs, "file", null), 
+			"files" => array_get($inputs, "files", null), 
 			"tags" => array_get($inputs, "tags", null), 
 		];
 
 		if (!$params['files'] || !$params['tags'])
-			throw new Exception("Algum parâmetro necessário para o processamento não foi enviado.");
+			throw new \Exception("Algum parâmetro necessário para o processamento não foi enviado.");
 	
 
-		$tag = new App\Tag(); 
-		$file = new App\File(); 
-		$process = new App\Process(); 
+		$tag = new Model\Tag(); 
+		$file = new Model\File(); 
+		$process = new Model\Process(); 
 
-		$tags = $tag->getTags($req->input('tags')); 
+		$tags = $tag->getTags($params['tags']); 
 
 		$processments = $process->getProcesses($tags); 
 
@@ -42,6 +47,6 @@ class ProcessmentController extends Controller
 					$processments 
 				); 
 
-		return view('processment.back', $processment_response); 
+		return "Processado com sucesso!";
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Abstracts\Processable;
@@ -23,7 +23,6 @@ class Process extends Model
     	$arr_processments = [ 'Watermark' ]; 
     	
     	$processes = array_map(function($process) {
-
             $class_name = "App\\Processes\\{$process}"; 
     
            	if (class_exists($class_name)) {
@@ -38,7 +37,6 @@ class Process extends Model
 			}
 	
         }, $arr_processments); 
-
     	return $processes; 
     }
 
