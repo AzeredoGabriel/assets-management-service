@@ -26,15 +26,12 @@ class FileService
                 
                 $message['processed'] 	= 	!! $process->execute($file); 
                 $message['putted'] 		= 	!! $this->put($file, $hash); 
-                $message['saved'] 		= 	$this->save($file, $message['putted']); 
                 
                 return $message; 
 
-            }, $files); 
+            }, $files);
         }
   		
-        dd($response); 
-
         return $response; 
 	}
 
@@ -47,20 +44,13 @@ class FileService
         return $files; 
 	}
 
-	public function put($file, $hash)
-	{
-		return 	is_dir(storage_path('app/{$hash}')) ?
-					Storage::move($file->realPath, $hash."/".$file->filename) :
-					false; 
-	}
-
-	public function save($files)
-	{
-		/**
-		 * salva no banco de dados
-		 */
+	public function put($file, $folder)
+	{	
 		
-		return true; 
+		if (!is_dir(storage_path('app/'.$folder)))
+			mkdir(storage_path('app/'.$folder), 0777); 
+			
+		return 	!! $file->storeAs($folder, $file->getClientOriginalName());
 	}
 
 }
