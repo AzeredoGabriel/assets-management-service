@@ -19,14 +19,4 @@ class Tag extends Model
     }
 
 
-    public function getTags($str_tags)
-    {
-    	/**
-    	 * Verifica se as tags são válidas com regex, database ou sei lá mais o que..
-    	 */
-    	
-    	$tags = explode(',', $str_tags); 
-    	return $tags; 
-    }
-
 }
