@@ -20,10 +20,8 @@ class ProcessmentController extends Controller
 	public function process(Request $req)
 	{
 
-		$inputs = $req->input(); 
-		
-		$inputs['domain'] = $req->getHost(); 
-		$inputs['project'] = "site";
+		$inputs 			= $req->input(); 
+		$inputs['domain'] 	= $req->getHost(); 
 
 		if ($req->hasFile('files'))
 			$inputs['files'] = $req->file('files');

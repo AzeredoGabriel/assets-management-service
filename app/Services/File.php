@@ -10,20 +10,17 @@ use Storage;
  * Essa camada é responsável por receber os parâmetros, verificar a validade deles e aplicar a lógica de negócio, pode acessar outros services
  */
 
-class Tag
+class File
 {
 
-	public function filter(array $tags)
-    {
-    	$tag = new Model\Tag(); 
-
-    	$tags = array_map('trim', $tags); 
-
-    	$valid_tags = array_filter($tags, function($tag){
-    		return !! Model\Tag::where('name', '=', $tag)->first(); 
-    	}); 
-
-    	return $valid_tags; 
-    }
+	public function put($file, $folder)
+	{	
+		
+		if (!is_dir(storage_path($folder)))
+			mkdir(storage_path($folder), 0777); 
+			
+		return 	!! $file->storeAs($folder, $file->getClientOriginalName());
+	}
 
 }
+

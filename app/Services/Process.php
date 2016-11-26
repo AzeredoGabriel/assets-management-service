@@ -2,12 +2,13 @@
 
 namespace App\Services;
 use App\Services as Service; 
-use App\Repositories as Repository;
+use App\Models as Model; 
+use App\Contracts; 
 use Storage; 
 
 /**
- * Camada de aplicação. 
- * Essa camada é responsável por receber os parâmetros, verificar a validade deles e aplicar a lógica de negócio, pode acessar outros services
+ * TODO:
+ * Comentar a classe e os métodos dela, com detalhes de funcionamento
  */
 
 class Process
@@ -16,23 +17,27 @@ class Process
 	public function execute($settings)
 	{	
 
-		$process_repo 	= new Repository\Process();
-		$project_repo 	= new Repository\Project();
-		$file_repo 		= new Repository\File();
-		$tag_service 	= new Service\Tag();
-
 		$files 			= $settings['files']; 
 		$tags 			= $settings['tags']; 
-		$project		= $settings['project']; 
-		
-		$tags 			= $tag_service->getValidTags($tags); 
-		$processments 	= $process_repo->getProcessments($tags); 
-		$project 		= $project_repo->getByName($project); 
-		$files 			= $this->extract($files); 
+		$project_name	= $settings['project']; 
+		$reponse 		= []; 
+
+		$file			= new Model\File();
+		$project		= new Model\Project();
+
+		$processments 	= $this->getProcessments($tags); 
+		$project 		= $project->getByName($project_name); 
+		$files 			= $this->getArray($files); 
+
+		/**
+		 * TODO: 
+		 * Continuar o debug dessa parte para finalizar o processamento de arquivos. 
+		 */
+
 
 		foreach ($processments as $key => $process) {
             
-            $response = array_map(function($file) use ($process, $project) {
+            $response[] = array_map(function($file) use ($process, $project) {
                 
                 $message = [
                 	"file" 			=> $file, 
@@ -46,25 +51,70 @@ class Process
             }, $files);
         }
   		
+  		dd($response); 
         return $response; 
 	}
 
+	public function getProcessments($tags)
+	{
 
-	public function extract($files)
+    	$tag_service 	= new Service\Tag(); 
+    	$process 		= new Model\Process(); 
+
+    	if (!is_array($tags))
+    		$tags = explode(",", $tags); 
+    	
+
+    	$tags 			= $tag_service->filter($tags); 
+    	$processaments 	= $process->getProcessmentsByTags($tags); 
+    	$merged 		= $this->merge($processaments); 
+    	$instances		= $this->getInstances($merged); 
+
+
+    	return $instances; 
+	}
+
+	public function merge(array $processments)
+	{
+		
+		$unique_processments = []; 
+
+		foreach ($processments as $key => $processment) {
+			foreach ($processment as $key => $process) {
+				if (!in_array($process->name, $unique_processments)) {
+					array_push($unique_processments, $process->name); 
+				}
+			}
+		}
+
+		return $unique_processments; 
+	}
+
+	public function getInstances(array $processments)
+	{
+		$processes = array_map(function($process) {
+            $class_name = "App\\Processes\\{$process}"; 
+    		
+           	if (class_exists($class_name)) {
+                $process = new $class_name;  
+				
+    			if (!$process instanceof Contracts\Processable) {
+               		// grava um log com essa informação.. 
+					throw new \Exception('Classe '.$class_name.' não é um processamento válido');
+				}
+    
+    			return $process; 
+			}
+	
+        }, $processments); 
+	}
+
+	public function getArray($files)
 	{
 		if (!is_array($files))
 			$files = [$files]; 
 
         return $files; 
-	}
-
-	public function put($file, $folder)
-	{	
-		
-		if (!is_dir(storage_path($folder)))
-			mkdir(storage_path($folder), 0777); 
-			
-		return 	!! $file->storeAs($folder, $file->getClientOriginalName());
 	}
 
 }

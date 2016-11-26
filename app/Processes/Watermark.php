@@ -2,9 +2,9 @@
 
 namespace App\Processes;
 
-use App\Contracts\Processable; 
+use App\Contracts; 
 
-class Watermark implements Processable
+class Watermark implements Contracts\Processable
 {
 
     public function execute($file)

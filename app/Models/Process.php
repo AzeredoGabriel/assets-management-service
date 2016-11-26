@@ -18,6 +18,20 @@ class Process extends Model
 
     public function tags()
     {
-    	return $this->belongsToMany('App\Tag'); 
+    	return $this->belongsToMany('App\Models\Tag'); 
+    }
+
+  
+    public function getProcessmentsByTags(array $tags)
+    {
+        $processments = array_map(function($tag) {
+            return Tag::where('name', '=', $tag)
+                ->first()
+                ->processes()
+                ->get();
+
+        }, $tags); 
+
+        return $processments; 
     }
 }

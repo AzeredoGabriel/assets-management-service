@@ -15,8 +15,7 @@ class Tag extends Model
 
     public function processes()
     {
-        return $this->belongsToMany('App\Process');
+        return $this->belongsToMany('App\Models\Process');
     }
-
 
 }
