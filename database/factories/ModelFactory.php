@@ -12,8 +12,7 @@
 */
 
 
-$factory->define(App\Person::class, function (Faker\Generator $faker) {
-
+$factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 	$faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
     
     return [
@@ -22,8 +21,7 @@ $factory->define(App\Person::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Company::class, function (Faker\Generator $faker) {
-    
+$factory->define(App\Models\Company::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_BR\Company($faker));
     
     return [
@@ -32,10 +30,17 @@ $factory->define(App\Company::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Account::class, function (Faker\Generator $faker) {
-
+$factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
     return [
         'person_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
         'company_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+    ];
+});
+
+
+$factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\Lorem($faker));
+    return [
+        'name' => $faker->word,
     ];
 });

@@ -28,6 +28,6 @@ class CreateProcessesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tags'); 
+        Schema::drop('processes'); 
     }
 }
