@@ -25,9 +25,11 @@ class Process
 		$file			= new Model\File();
 		$project		= new Model\Project();
 
+
 		$processments 	= $this->getProcessments($tags); 
+
 		$project 		= $project->getByName($project_name); 
-		$files 			= $this->getArray($files); 
+		$files 			= $this->toArray($files); 
 
 		/**
 		 * TODO: 
@@ -70,6 +72,7 @@ class Process
     	$merged 		= $this->merge($processaments); 
     	$instances		= $this->getInstances($merged); 
 
+    	dd($instances); 
 
     	return $instances; 
 	}
@@ -102,14 +105,18 @@ class Process
                		// grava um log com essa informação.. 
 					throw new \Exception('Classe '.$class_name.' não é um processamento válido');
 				}
-    
+    			
     			return $process; 
 			}
 	
         }, $processments); 
+
+		$processes = array_filter($processes); 
+	
+        return $processes; 
 	}
 
-	public function getArray($files)
+	public function toArray($files)
 	{
 		if (!is_array($files))
 			$files = [$files]; 

@@ -15,3 +15,5 @@
 
 Route::get('/', 'ProcessmentController@index');
 Route::post('/process', 'ProcessmentController@process');
+
+Route::post('/rest/test/', 'ProcessmentController@rest');

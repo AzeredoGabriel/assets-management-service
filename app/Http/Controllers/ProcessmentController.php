@@ -40,4 +40,10 @@ class ProcessmentController extends Controller
 		return $message; 
 
 	}
+
+
+	public function rest(Request $req)
+	{
+		dd($req->all()); 
+	}
 }
