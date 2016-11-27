@@ -12,4 +12,10 @@ class Project extends Model
 		//tratar melhor essa parada
 		return self::where('name', '=', $name)->first(); 
 	}
+
+
+	public function customer()
+	{
+		return $this->belongsTo('App\Models\Customer'); 
+	}
 }

@@ -17,18 +17,14 @@ class ProcessmentController extends Controller
 	}
 
 
-	public function process(Request $req)
+	public function form_direct_url(Request $req)
 	{
-
-		$inputs 			= $req->input(); 
+		$inputs 			= $req->all(); 
 		$inputs['domain'] 	= $req->getHost(); 
-
-		if ($req->hasFile('files'))
-			$inputs['files'] = $req->file('files');
-
+		
 		$settings = [
 			"domain"	=> array_get($inputs, "domain"	, null), 
-			"project"	=> array_get($inputs, "project"	, null), 
+			"project"	=> array_get($inputs, "project"	, "vieira.net"), 
 			"files" 	=> array_get($inputs, "files"	, null), 
 			"tags" 		=> array_get($inputs, "tags"	, null),
 		];
@@ -38,12 +34,5 @@ class ProcessmentController extends Controller
 		$message = $process->execute($settings); 
 		
 		return $message; 
-
-	}
-
-
-	public function rest(Request $req)
-	{
-		dd($req->all()); 
 	}
 }

@@ -29,6 +29,8 @@ class Process
 		$processments 	= $this->getProcessments($tags); 
 
 		$project 		= $project->getByName($project_name); 
+
+		dd($project); 
 		$files 			= $this->toArray($files); 
 
 		/**
@@ -71,8 +73,6 @@ class Process
     	$processaments 	= $process->getProcessmentsByTags($tags); 
     	$merged 		= $this->merge($processaments); 
     	$instances		= $this->getInstances($merged); 
-
-    	dd($instances); 
 
     	return $instances; 
 	}
