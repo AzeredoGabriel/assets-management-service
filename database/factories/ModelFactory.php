@@ -57,8 +57,17 @@ $factory->define(App\Models\Customer::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Project::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\Internet($faker));
     return [
-        'name' => $faker->domainName,
+        'name' => $faker->domainWord,
         'customer_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
-        'project_key' => md5($faker->domainName)
+        'project_key' => md5($faker->domainWord)
+    ];
+});
+
+
+$factory->define(App\Models\Domain::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\Internet($faker));
+    return [
+        'name' => $faker->domainName,
+        'project_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
     ];
 });

@@ -14,62 +14,32 @@ use Storage;
 class Process
 {
 
-	public function execute($settings)
+	public function execute(array $files, array $tags, string $project_key)
 	{	
 
-		$files 			= $settings['files']; 
-		$tags 			= $settings['tags']; 
-		$project_name	= $settings['project']; 
-		$reponse 		= []; 
-
-		$file			= new Model\File();
-		$project		= new Model\Project();
-
-
+		$response 		= []; 
 		$processments 	= $this->getProcessments($tags); 
 
-		$project 		= $project->getByName($project_name); 
-
-		dd($project); 
-		$files 			= $this->toArray($files); 
-
-		/**
-		 * TODO: 
-		 * Continuar o debug dessa parte para finalizar o processamento de arquivos. 
-		 */
-
-
 		foreach ($processments as $key => $process) {
-            
-            $response[] = array_map(function($file) use ($process, $project) {
-                
-                $message = [
-                	"file" 			=> $file, 
-                	"processed"		=> !! $process->execute($file), 
-                	"putted"		=> !! $this->put($file, $project->project_key), 
-                	"saved"			=> $file_repo->save($file)
-                ]; 
+			            
+            array_map(function($file) use ($process) {
+				
+				try {
+					$process->execute($file);             		
+            	} catch (Exception $e) {
+            		echo $e->getMessage(); 
+            	}            	
 
-                return $message; 
-
+            	return $message; 
             }, $files);
         }
   		
-  		dd($response); 
         return $response; 
 	}
 
-	public function getProcessments($tags)
+	public function getProcessments(array $tags)
 	{
-
-    	$tag_service 	= new Service\Tag(); 
     	$process 		= new Model\Process(); 
-
-    	if (!is_array($tags))
-    		$tags = explode(",", $tags); 
-    	
-
-    	$tags 			= $tag_service->filter($tags); 
     	$processaments 	= $process->getProcessmentsByTags($tags); 
     	$merged 		= $this->merge($processaments); 
     	$instances		= $this->getInstances($merged); 
@@ -79,7 +49,7 @@ class Process
 
 	public function merge(array $processments)
 	{
-		
+	
 		$unique_processments = []; 
 
 		foreach ($processments as $key => $processment) {
@@ -95,6 +65,7 @@ class Process
 
 	public function getInstances(array $processments)
 	{
+
 		$processes = array_map(function($process) {
             $class_name = "App\\Processes\\{$process}"; 
     		
@@ -114,14 +85,6 @@ class Process
 		$processes = array_filter($processes); 
 	
         return $processes; 
-	}
-
-	public function toArray($files)
-	{
-		if (!is_array($files))
-			$files = [$files]; 
-
-        return $files; 
 	}
 
 }

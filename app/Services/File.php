@@ -22,5 +22,18 @@ class File
 		return 	!! $file->storeAs($folder, $file->getClientOriginalName());
 	}
 
+	public function toArray($files)
+	{
+		if (!is_array($files))
+			$files = [$files]; 
+
+        return $files; 
+	}
+
+	public function add($file)
+	{
+		
+	}
+
 }
 
