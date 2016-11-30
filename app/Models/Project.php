@@ -12,12 +12,9 @@ class Project extends Model
 		return $this->belongsTo('App\Models\Customer'); 
 	}
 	
-	//TODO:
-	// Criar model domain
-
 	public function domains()
 	{
-		return $this->belongsTo('App\Models\Domain'); 
+		return $this->hasMany('App\Models\Domain'); 
 	}
 
     public function getByKey($key)

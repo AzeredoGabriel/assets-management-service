@@ -14,7 +14,7 @@ use Storage;
 class Process
 {
 
-	public function execute(array $files, array $tags, string $project_key)
+	public function execute(array $files, array $tags, $project_key)
 	{	
 
 		$response 		= []; 
@@ -29,8 +29,7 @@ class Process
             	} catch (Exception $e) {
             		echo $e->getMessage(); 
             	}            	
-
-            	return $message; 
+            	
             }, $files);
         }
   		

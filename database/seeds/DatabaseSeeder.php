@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         factory(App\Models\Tag::class       , 10)->create();
         factory(App\Models\Customer::class  , 10)->create();
         factory(App\Models\Project::class   , 10)->create();
+        factory(App\Models\Domain::class    , 3)->create();
 
         foreach (['Watermark', 'Filter', 'Optimize'] as $index) {
             DB::table('processes')->insert([

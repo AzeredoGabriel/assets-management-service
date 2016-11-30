@@ -13,8 +13,12 @@ use Storage;
 class Tag
 {
 
-	public function filter(array $tags)
+	public function filter($tags)
     {
+
+    	if (!is_array($tags))
+    		$tags = explode(",", $tags); 
+    	
     	$tag = new Model\Tag(); 
 
     	$tags = array_map('trim', $tags); 

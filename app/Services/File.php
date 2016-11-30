@@ -13,13 +13,21 @@ use Storage;
 class File
 {
 
-	public function put($file, $folder)
+	public function move($files, $folder)
 	{	
 		
+		$files = $this->toArray($files); 
+
 		if (!is_dir(storage_path($folder)))
 			mkdir(storage_path($folder), 0777); 
+		
+		$success = true; 
+		foreach ($files as $key => $file) {
+			if (!$file->storeAs($folder, $file->getClientOriginalName()))
+				$success = false; 		
+		}
 			
-		return 	!! $file->storeAs($folder, $file->getClientOriginalName());
+		return 	$success ? $files : false; 
 	}
 
 	public function toArray($files)
@@ -28,11 +36,6 @@ class File
 			$files = [$files]; 
 
         return $files; 
-	}
-
-	public function add($file)
-	{
-		
 	}
 
 }
