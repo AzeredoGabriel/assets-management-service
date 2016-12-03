@@ -14,6 +14,7 @@ class File extends Model
      * @var array
      */
     protected $fillable = [ 'name', 'size', 'extention' ];
+    protected $hidden   = ['tmp_path']; 
 
     public function tags()
     {

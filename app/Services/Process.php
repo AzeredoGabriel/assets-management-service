@@ -6,31 +6,59 @@ use App\Models as Model;
 use App\Contracts; 
 use Storage; 
 
-/**
- * TODO:
- * Comentar a classe e os métodos dela, com detalhes de funcionamento
- */
-
 class Process
 {
 
-	public function execute(array $files, array $tags, $project_key)
+	public function processFiles($settings)
+	{
+
+		$MessageService = Service\Message::getInstance();  
+
+		$ProjectService = new Service\Project(); 
+		$Project 		= $ProjectService->getProjectByKey($settings['key']); 
+
+		if (!$Project)
+			return $MessageService->setError("Desculpe, a chave do projeto não existe!");
+
+		if (!$ProjectService->validateDomain($settings['domain']))
+			return $MessageService->setError("Desculpe, o domínio enviado não é válido!");			
+		
+		$TagService		= new Service\Tag(); 
+		$tags 			= $TagService->filter($settings['tags']); 
+
+		$FileService 	= new Service\File(); 
+		$files 			= $FileService->translate($files); 
+
+		if ($tags)
+			$processments= $this->getProcessments($tags); 
+
+		foreach ($files as $key => $file) {
+			$FileService->add($file, $Project->project_key); 
+			
+			$this->execute($file, $processments, $MessageService); 
+		}
+
+		return $MessageService; 
+	}
+
+
+
+	public function execute($file, $processments, $message)
 	{	
-
-		$response 		= []; 
-		$processments 	= $this->getProcessments($tags); 
-
+	
 		foreach ($processments as $key => $process) {
-			            
-            array_map(function($file) use ($process) {
-				
-				try {
-					$process->execute($file);             		
-            	} catch (Exception $e) {
-            		echo $e->getMessage(); 
-            	}            	
-            	
-            }, $files);
+			
+			try {
+
+				$process->execute($file);             		
+
+        	} catch (Exception $e) {
+        		/**
+        		 * TODO: 
+        		 * Criar mensagens para erro. 
+        		 */
+        		echo $e->getMessage(); 
+        	}            	
         }
   		
         return $response; 
