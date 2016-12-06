@@ -1,51 +1,67 @@
 <?php
 
 namespace App\Services;
-use App\Services as Service; 
-use App\Models as Model; 
-use App\Contracts; 
-use Storage; 
+
+use App\Models\Process,
+	App\Models\Tag,
+	App\Models\Project,
+	App\Models\File;
+
 
 class Process
 {
+	/**
+	 * Instância de App\Models\Process
+	 * @var [App\Models\Process]
+	 */
+	protected $process_model; 
 
-	public function processFiles($settings)
+	/**
+	 * Instância de App\Models\Tag
+	 * @var [App\Models\Tag]
+	 */
+	protected $tag_model; 
+
+	/**
+	 * Instância de App\Models\Project
+	 * @var [App\Models\Project]
+	 */
+	protected $project_model; 
+
+	/**
+	 * Instância de App\Models\File
+	 * @var [App\Models\File]
+	 */
+	protected $file_model; 
+
+	
+	public function __construct(
+		Process $process_model,	
+		Project	$project_model,	
+		File $file_model,	
+		Tag $tag_model,
+		)
 	{
-
-		$MessageService = Service\Message::getInstance();  
-
-		$ProjectService = new Service\Project(); 
-		$Project 		= $ProjectService->getProjectByKey($settings['key']); 
-
-		if (!$Project)
-			return $MessageService->setError("Desculpe, a chave do projeto não existe!");
-
-		if (!$ProjectService->validateDomain($settings['domain']))
-			return $MessageService->setError("Desculpe, o domínio enviado não é válido!");			
-		
-		$TagService		= new Service\Tag(); 
-		$tags 			= $TagService->filter($settings['tags']); 
-
-		$FileService 	= new Service\File(); 
-		$files 			= $FileService->translate($files); 
-
-		if ($tags)
-			$processments= $this->getProcessments($tags); 
-
-		foreach ($files as $key => $file) {
-			$FileService->add($file, $Project->project_key); 
-			
-			$this->execute($file, $processments, $MessageService); 
-		}
-
-		return $MessageService; 
+		$this->process_model 	= $process_model;
+		$this->project_model 	= $project_model;
+		$this->file_model 		= $file_model;
+		$this->tag_model 		= $tag_model;
 	}
 
-
-
+	/**
+	 * Executa os processamentos para cada arquivo.
+	 * 
+	 * @param  UploadedFile $file  [Arquivo do tipo UploadedFile]
+	 * @param  Array $processments [Array de processamentos (classes do com a interface Processable)]
+	 * @return Service\Message     [Retorna uma mensagem.]
+	 */
 	public function execute($file, $processments, $message)
 	{	
-	
+		/**
+		 * TODO: 
+		 * Melhorar método de processamento e criar mensagem de erro utilizando Service\Message. 
+		 */
+
 		foreach ($processments as $key => $process) {
 			
 			try {
@@ -53,10 +69,6 @@ class Process
 				$process->execute($file);             		
 
         	} catch (Exception $e) {
-        		/**
-        		 * TODO: 
-        		 * Criar mensagens para erro. 
-        		 */
         		echo $e->getMessage(); 
         	}            	
         }
@@ -64,17 +76,26 @@ class Process
         return $response; 
 	}
 
+	/**
+	 * Obtém os processamentos (Processable) vinculados as tags passadas.
+	 * @param  array  $tags 
+	 * @return array  Retorna um array de instâncias Processable
+	 */
 	public function getProcessments(array $tags)
 	{
-    	$process 		= new Model\Process(); 
-    	$processaments 	= $process->getProcessmentsByTags($tags); 
+    	$processaments 	= $this->process_model->getProcessmentsByTags($tags); 
     	$merged 		= $this->merge($processaments); 
     	$instances		= $this->getInstances($merged); 
 
     	return $instances; 
 	}
 
-	public function merge(array $processments)
+	/**
+	 * Une processamentos para retirar classes repetidas
+	 * @param  array  $processments Array de processamentos
+	 * @return array  Retorna um array de processamentos únicos.
+	 */
+	private function merge(array $processments)
 	{
 	
 		$unique_processments = []; 
@@ -90,7 +111,12 @@ class Process
 		return $unique_processments; 
 	}
 
-	public function getInstances(array $processments)
+	/**
+	 * Obtém os objetos Processable, a partir de um array de nomes de processamentos.
+	 * @param  array  $processments Array com nomes de processamentos válidos
+	 * @return array  Retona um array de instâncias Processable.
+	 */
+	private function getInstances(array $processments)
 	{
 
 		$processes = array_map(function($process) {

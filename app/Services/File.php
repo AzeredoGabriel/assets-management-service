@@ -5,18 +5,21 @@ use App\Services as Service;
 use App\Models as Model;
 use Storage; 
 
-/**
- * Camada de aplicação. 
- * Essa camada é responsável por receber os parâmetros, verificar a validade deles e aplicar a lógica de negócio, pode acessar outros services
- */
 
 class File
 {
 
-	public function move($files, $folder)
+	/**
+	 * Executa a lógica de mover o arquivo para algumas pastas específicas;
+	 * @param  UploadedFile $files 
+	 * @param  string $folder Project key, também é usado como pasta do projeto.
+	 * @return boolean Retona true e tudo ocorreu bem e false caso contrário. 
+	 */
+	public function move(UploadedFile $file, $folder)
 	{	
 		
-		$files = $this->toArray($files); 
+		//TODO: 
+		//Essa classe está errada, corrigir. 
 
 		if (!is_dir(storage_path($folder)))
 			mkdir(storage_path($folder), 0777); 
@@ -30,13 +33,16 @@ class File
 		return 	$success ? $files : false; 
 	}
 
-	public function toArray($files)
+	/**
+	 * Transforma os arquivos em um array de objetos UploadedFile do laravel.
+	 * @param  array $files 
+	 * @return array Retorna um array de objetos UploadedFile.
+	 */
+	public function transform($files)
 	{
-		if (!is_array($files))
-			$files = [$files]; 
+		//TODO:
+	}	
 
-        return $files; 
-	}
 
 }
 
