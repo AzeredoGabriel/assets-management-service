@@ -5,7 +5,7 @@ use App\Contracts\Messager;
 
 
 //Objeto responsável por trafegar mensagens entre as classes da aplicação.
-class Message implements Messager
+class MessageService implements Messager
 {	
 	/**
 	 * Instância única da classe.
@@ -33,10 +33,10 @@ class Message implements Messager
 	 */
 	public static function getInstance()
     {
-        if (!$instance) 
-            $instance = new static();
+        if (!self::$instance) 
+            self::$instance = new static();
         
-        return $instance;
+        return self::$instance;
     }
 
     /**

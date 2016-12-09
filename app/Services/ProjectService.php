@@ -1,14 +1,26 @@
 <?php
 
 namespace App\Services;
-use App\Services as Service; 
-use App\Models as Model;
+
+use App\Models\Project;
 use Storage; 
 
 
-class Project
+class ProjectService
 {
+	/**
+	 * Instância do modelo de projeto
+	 * @var App\Models\Project
+	 */
+	protected $project_model; 
+
 	
+	public function __construct(
+		Project $project_model)
+	{
+		$this->project_model = $project_model; 	
+	}
+
 	/**
 	 * Obtém projeto a partir da key.
 	 * 
@@ -16,18 +28,10 @@ class Project
 	 * @param  string $domain 
 	 * @return Project Retorna uma instância de Project.
 	 */
-	public function getProjectByKey($key, $domain)
+	public function getProjectByKey($key)
 	{
-		$project = new Model\Project(); 
-		$project = $project->getByKey($key); 
-
-		if (!$project)
-			return false; 
-
-
-		$valid_domain = $this->validateDomain($project, $domain); 
-
-		return $valid_domain ? $project : false; 
+		$project = $this->project_model->getByKey($key); 
+		return $project ? $project : false; 
 	}	
 
 	/**
@@ -37,7 +41,7 @@ class Project
 	 * @param  string 	     $domain  
 	 * @return boolean       Retorna um boolean informando se o domínio é válido ou não. 
 	 */
-	public function validateDomain(Model\Project $project, $domain)
+	public function validateDomain(Project $project, $domain)
 	{
 		$domains = $project->domains()->get()->toArray();
 

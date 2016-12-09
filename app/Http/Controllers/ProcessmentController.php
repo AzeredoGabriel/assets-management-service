@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Service\Process,
-	Service\Tag,
-	Service\Project,
-	Service\File,
-	Service\Message; 
+use App\Services\ProcessService,
+	App\Services\TagService,
+	App\Services\ProjectService,
+	App\Services\FileService,
+	App\Services\MessageService; 
 
 class ProcessmentController extends Controller
 {	
@@ -35,22 +35,23 @@ class ProcessmentController extends Controller
 	 * @return json    Retorna a resposta do processamento em json.
 	 */
 	public function form_direct_url(
-			Message $message_service,
-			Process $process_service, 
-			Project $project_service, 
-			Tag 	$tag_service, 
-			File 	$file_service)
+			ProcessService $process_service, 
+			ProjectService $project_service, 
+			TagService 	$tag_service, 
+			FileService $file_service, 
+			Request $req)
 	{
 
+		$message_service = MessageService::getInstance(); 
+
 		$inputs = $req->all(); 
-		
+
 		$get_params = [
 			"domain"	=> $req->getHost(), 
-			"key"		=> array_get($inputs, "project"	, "7cc2f5edf9496cf255d8c2593f6040f0"), //trocar para key
+			"key"		=> array_get($inputs, "project"	, "50cd0fa95639f1d0bd57af0b68f73633"), //trocar para key
 			"files" 	=> array_get($inputs, "files"	, null), 
 			"tags" 		=> array_get($inputs, "tags"	, null),
 		];
-
 
 		$project = 
 			$project_service->getProjectByKey($get_params['key']); 
@@ -59,25 +60,27 @@ class ProcessmentController extends Controller
 			return $message_service->setError("Desculpe, a chave do projeto não existe!");
 
 		$valid_domain = 
-			$project_service->validateDomain($get_params['domain']); 
+			$project_service->validateDomain($project, $get_params['domain']); 
 
 		if (!$valid_domain)
 			return $message_service->setError("Desculpe, esse domínio não é válido para o projeto");			
 		
 		$tags = 
-			$tag_service->filter($settings['tags']); 
+			$tag_service->filter($get_params['tags']); 
 
 		$files = 
-			$file_service->transform($files); 
-
+			$file_service->transform($get_params['files']); 
+		
 		if ($tags)
-			$processments =	$this->getProcessments($tags); 
-
-
+			$processments =	$process_service->getProcessments($tags); 
+	
 		foreach ($files as $key => $file) {
+
 			$file_service->move($file, $project->project_key); 
 			$file_service->add($file, $project); 
-			$process_service->execute($file, $processments)
+
+			dd("foi?"); 
+			$process_service->execute($file, $processments);
 		}
 
 		return $message_service->getAPI(); 

@@ -7,8 +7,10 @@ use App\Models\Process,
 	App\Models\Project,
 	App\Models\File;
 
+use App\Contracts\Processable; 
 
-class Process
+
+class ProcessService
 {
 	/**
 	 * Instância de App\Models\Process
@@ -39,8 +41,7 @@ class Process
 		Process $process_model,	
 		Project	$project_model,	
 		File $file_model,	
-		Tag $tag_model,
-		)
+		Tag $tag_model)
 	{
 		$this->process_model 	= $process_model;
 		$this->project_model 	= $project_model;
@@ -125,9 +126,8 @@ class Process
            	if (class_exists($class_name)) {
                 $process = new $class_name;  
 				
-    			if (!$process instanceof Contracts\Processable) {
-               		// grava um log com essa informação.. 
-					throw new \Exception('Classe '.$class_name.' não é um processamento válido');
+    			if (!$process instanceof Processable) {
+               		throw new \Exception('Classe '.$class_name.' não é um processamento válido');
 				}
     			
     			return $process; 

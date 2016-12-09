@@ -10,7 +10,7 @@ use Storage;
  * Essa camada é responsável por receber os parâmetros, verificar a validade deles e aplicar a lógica de negócio, pode acessar outros services
  */
 
-class Tag
+class TagService
 {
 
 	/**
