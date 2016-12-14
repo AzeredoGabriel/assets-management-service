@@ -43,7 +43,7 @@ class ProcessmentController extends Controller
 	{
 
 		$message_service = MessageService::getInstance(); 
-		//testando git flow
+		
 		$inputs = $req->all(); 
 
 		$get_params = [
@@ -70,7 +70,7 @@ class ProcessmentController extends Controller
 
 		$files = 
 			$file_service->transform($get_params['files']); 
-		//testando git flow
+		
 		if ($tags)
 			$processments =	$process_service->getProcessments($tags); 
 	
