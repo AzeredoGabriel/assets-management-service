@@ -11,7 +11,13 @@
 |
 */
 
-//Route::get('/', function () { return view('welcome'); });
-
 Route::get('/', 'ProcessmentController@index');
-Route::post('/process', 'ProcessmentController@process');
+
+
+/**
+ * UPLOAD METHODS
+ * =============================
+ * 
+ */
+
+Route::post('/form_direct_url/', 'ProcessmentController@form_direct_url');

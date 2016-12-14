@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectsTable extends Migration
+class CreateProcessTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('process_tag', function (Blueprint $table) {
             $table->increments('id'); 
-            $table->string('name'); 
-            $table->integer('project_key'); 
-            $table->integer('customer_id'); 
+            $table->integer('process_id'); 
+            $table->integer('tag_id'); 
             $table->timestamps(); 
+
+            $table->foreign('tag_id')->references('id')->on('tags');
+            $table->foreign('process_id')->references('id')->on('processes'); 
         });
     }
 
@@ -29,6 +31,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('projects'); 
+        Schema::drop('process_tag'); 
     }
 }
