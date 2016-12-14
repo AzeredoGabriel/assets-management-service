@@ -64,7 +64,7 @@ class ProcessmentController extends Controller
 
 		if (!$valid_domain)
 			return $message_service->setError("Desculpe, esse domínio não é válido para o projeto");			
-		
+		//asd
 		$tags = 
 			$tag_service->filter($get_params['tags']); 
 
