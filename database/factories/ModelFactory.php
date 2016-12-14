@@ -11,9 +11,7 @@
 |
 */
 
-
-$factory->define(App\Person::class, function (Faker\Generator $faker) {
-
+$factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 	$faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
     
     return [
@@ -22,8 +20,7 @@ $factory->define(App\Person::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Company::class, function (Faker\Generator $faker) {
-    
+$factory->define(App\Models\Company::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_BR\Company($faker));
     
     return [
@@ -32,10 +29,45 @@ $factory->define(App\Company::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Account::class, function (Faker\Generator $faker) {
-
+$factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
     return [
         'person_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
         'company_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]) 
+    ];
+});
+
+
+$factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\Lorem($faker));
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+
+$factory->define(App\Models\Customer::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\en_US\Company($faker));
+    return [
+        'name' => $faker->company,
+        'account_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    ];
+});
+
+
+$factory->define(App\Models\Project::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\Internet($faker));
+    return [
+        'name' => $faker->domainWord,
+        'customer_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
+        'project_key' => md5($faker->domainWord)
+    ];
+});
+
+
+$factory->define(App\Models\Domain::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\Internet($faker));
+    return [
+        'domain' => $faker->domainName,
+        'project_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
     ];
 });

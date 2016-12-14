@@ -3,50 +3,86 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models as Model; 
 
+use App\Services\ProcessService,
+	App\Services\TagService,
+	App\Services\ProjectService,
+	App\Services\FileService,
+	App\Services\MessageService; 
 
 class ProcessmentController extends Controller
-{
+{	
 
+	/**
+	 * Página principal do projeto.
+	 * 
+	 * @param  Request $req 
+	 * @return [view]       Retorna a view index.
+	 */
 	public function index(Request $req)
 	{
 		return view('processment.index'); 
 	}
 
-
-	public function process(Request $req)
+	/**
+	 * Executa os processamentos para arquivos enviados via URL direta. 
+	 *
+	 * @param  Message $message_service [Instância de Service\Message]
+	 * @param  Process $process_service [Instância de Service\Process]
+	 * @param  Project $project_service [Instância de Service\Project]
+	 * @param  Tag     $tag_service     [Instância de Service\Tag]
+	 * @param  File    $file_service    [Instância de Service\File]
+	 * @return json    Retorna a resposta do processamento em json.
+	 */
+	public function form_direct_url(
+			ProcessService $process_service, 
+			ProjectService $project_service, 
+			TagService 	$tag_service, 
+			FileService $file_service, 
+			Request $req)
 	{
 
-		$inputs = $req->input(); 
+		$message_service = MessageService::getInstance(); 
 
-		if ($req->hasFile('files'))
-			$inputs['files'] = $req->file('files');
- 
+		$inputs = $req->all(); 
 
-		$params = [
-			"files" => array_get($inputs, "files", null), 
-			"tags" => array_get($inputs, "tags", null), 
+		$get_params = [
+			"domain"	=> $req->getHost(), 
+			"key"		=> array_get($inputs, "project"	, "50cd0fa95639f1d0bd57af0b68f73633"), //trocar para key
+			"files" 	=> array_get($inputs, "files"	, null), 
+			"tags" 		=> array_get($inputs, "tags"	, null),
 		];
 
-		if (!$params['files'] || !$params['tags'])
-			throw new \Exception("Algum parâmetro necessário para o processamento não foi enviado.");
+		$project = 
+			$project_service->getProjectByKey($get_params['key']); 
+
+		if (!$project)
+			return $message_service->setError("Desculpe, a chave do projeto não existe!");
+
+		$valid_domain = 
+			$project_service->validateDomain($project, $get_params['domain']); 
+
+		if (!$valid_domain)
+			return $message_service->setError("Desculpe, esse domínio não é válido para o projeto");			
+		
+		$tags = 
+			$tag_service->filter($get_params['tags']); 
+
+		$files = 
+			$file_service->transform($get_params['files']); 
+		
+		if ($tags)
+			$processments =	$process_service->getProcessments($tags); 
 	
+		foreach ($files as $key => $file) {
 
-		$tag = new Model\Tag(); 
-		$file = new Model\File(); 
-		$process = new Model\Process(); 
+			$file_service->move($file, $project->project_key); 
+			$file_service->add($file, $project); 
 
-		$tags = $tag->getTags($params['tags']); 
+			dd("foi?"); 
+			$process_service->execute($file, $processments);
+		}
 
-		$processments = $process->getProcesses($tags); 
-
-		$processment_response = 	
-				$file->process( 
-					$params['files'], 
-					$processments 
-				); 
-
-		return "Processado com sucesso!";
+		return $message_service->getAPI(); 
 	}
 }
