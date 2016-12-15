@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/'								, 'DashboardController@index');
+
+Route::get('/processments/'					, 'ProcessmentController@index');
+Route::get('/processments/configurations'	, 'ProcessmentController@configurations');
 
 
 /**

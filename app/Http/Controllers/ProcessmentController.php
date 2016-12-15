@@ -21,8 +21,19 @@ class ProcessmentController extends Controller
 	 */
 	public function index(Request $req)
 	{
-		return view('processment.index'); 
+		return view('processments.index'); 
 	}
+
+
+	/**
+	 * Página para configurações de processamento para um projeto. 
+	 * @param  Request $req 
+	 * @return [view]       Retorna a view configurations.
+	 */
+	public function configurations(Request $req)
+	{
+		return view('processments.configurations'); 
+	}	
 
 	/**
 	 * Executa os processamentos para arquivos enviados via URL direta. 
@@ -85,4 +96,5 @@ class ProcessmentController extends Controller
 
 		return $message_service->getAPI(); 
 	}
+
 }
