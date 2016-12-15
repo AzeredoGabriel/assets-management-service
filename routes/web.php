@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ProcessmentController@index');
+Route::get('/', 'HomeController@index');
 
 
 /**
