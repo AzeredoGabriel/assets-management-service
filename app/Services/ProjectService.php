@@ -21,6 +21,16 @@ class ProjectService
 		$this->project_model = $project_model; 	
 	}
 
+	public function getProjectList()
+	{
+		return []; 
+	}
+
+	public function getProject($id)
+	{
+		return true; 
+	}
+
 	/**
 	 * Obtém projeto a partir da key.
 	 * 

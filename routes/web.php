@@ -13,6 +13,10 @@
 
 Route::get('/'								, 'DashboardController@index');
 
+//projects
+Route::resource('projects'					, 'ProjectController');
+
+
 Route::get('/processments/'					, 'ProcessmentController@index');
 Route::get('/processments/configurations'	, 'ProcessmentController@configurations');
 

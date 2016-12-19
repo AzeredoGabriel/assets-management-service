@@ -28,17 +28,17 @@
   <ul class="sidebar-menu">
     <li class="header">HEADER</li>
     <!-- Optionally, you can add icons to the links -->
-    <li class="active"><a href="/"><i class="fa fa-link"></i> <span>Dashboard</span></a></li>
+    <li class="active"><a href="/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
     <li class="treeview">
-      <a href="processments/"><i class="fa fa-link"></i> <span>Projetos</span>
+      <a href="processments/"><i class="fa fa-bars"></i> <span>Projetos</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-        <li><a href="projects/"><i class="fa fa-picture-o"></i>Listar Projetos</a></li>
-        <li><a href="projects/add/"><i class="fa fa-picture-o"></i>Adicionar Projeto</a></li>
-        <li><a href="projects/processments/"><i class="fa fa-picture-o"></i>Processar Imagem</a></li>
+        <li><a href="projects/"><i class="fa fa-bars"></i>Listar Projetos</a></li>
+        <li><a href="projects/add/"><i class="fa fa-plus"></i>Adicionar Projeto</a></li>
+        <li><a href="projects/processments/"><i class="fa fa-line-chart"></i>Processar Arquivo</a></li>
         <li><a href="projects/processments/configs/"><i class="fa fa-gears"></i>Configurações</a></li>
       </ul>
     </li>

@@ -21,3 +21,4 @@
 
 <!-- CUSTOM PLIGINS -->
 <link rel="stylesheet" href="/AdminLTE/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.css">
