@@ -11,14 +11,36 @@
 |
 */
 
-Route::get('/'								, 'DashboardController@index');
+Auth::routes();
 
-//projects
-Route::resource('projects'					, 'ProjectController');
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('/users/images/profile/{id}/'	, ['uses' =>'UserController@profileImage']);
+	Route::get('/'								, 'DashboardController@index');
+
+	//projects
+	Route::resource('projects'					, 'ProjectController');
 
 
-Route::get('/processments/'					, 'ProcessmentController@index');
-Route::get('/processments/configurations'	, 'ProcessmentController@configurations');
+	Route::get('/processments/'					, 'ProcessmentController@index');
+	Route::get('/processments/configurations'	, 'ProcessmentController@configurations');
+
+});
+
+
+Route::group(['prefix' => 'api'], function () {
+   
+   Route::group(['prefix' => 'v1'], function () {
+	    
+	    Route::group(['middleware' => 'auth'], function () {
+	    	// necessário autenticação 
+	    });
+
+	    // não é necessário autenticação
+
+	});
+
+});
 
 
 /**
@@ -28,3 +50,4 @@ Route::get('/processments/configurations'	, 'ProcessmentController@configuration
  */
 
 Route::post('/form_direct_url/', 'ProcessmentController@form_direct_url');
+

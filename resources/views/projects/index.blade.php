@@ -12,7 +12,7 @@
 </section>
 <section class="content">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
              <!-- /.box-header -->
             <div class="box">
                 <div class="box-header">
@@ -130,19 +130,6 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
-        </div>
-
-        <div class="col-md-4">
-             <div class="box box-danger">
-                <div class="box-header">
-                    <h3 class="box-title">Mais consomem</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <!-- DONUT CHART -->
-                    <canvas id="projects-consum-graphic" width="auto" height="400"></canvas>
-                </div>
-            </div>
         </div>
     </div>
 </section>

@@ -19,6 +19,8 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<link rel="stylesheet" href="/css/custom.css">
+
 <!-- CUSTOM PLIGINS -->
 <link rel="stylesheet" href="/AdminLTE/plugins/select2/select2.min.css">
 <link rel="stylesheet" href="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.css">

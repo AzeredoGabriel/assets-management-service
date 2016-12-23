@@ -1,0 +1,12 @@
+.checkbox, .radio {padding-left: 20px;}
+
+
+
+/* ============ ADMIN LTE =============*/
+
+.login-box-body, .register-box-body {
+	border-radius: 7px;
+	-webkit-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.33);
+	-moz-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.33);
+	box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.33);
+}
