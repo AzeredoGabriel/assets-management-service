@@ -15,4 +15,11 @@ class DashboardController extends Controller
     {
     	return view('dashboards.index'); 
     }
+
+
+	public function teste()
+	{
+		return $this->index(); 
+	}
+
 }
