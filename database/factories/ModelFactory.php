@@ -11,6 +11,12 @@
 |
 */
 
+/**
+ | --------------------------
+ | Criando um objeto Person
+ | --------------------------
+ */
+
 $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
 	$faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
     
@@ -19,6 +25,32 @@ $factory->define(App\Models\Person::class, function (Faker\Generator $faker) {
         'cpf' => $faker->cpf(false),
     ];
 });
+
+
+/**
+ | --------------------------
+ | Criando um objeto User
+ | --------------------------
+ */
+
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
+    $faker->addProvider(new Faker\Provider\Internet($faker));
+    
+    
+    return [
+        'email' => $faker->email,
+        'login' => $faker->userName(false),
+        'password' => $faker->password(false),
+        'person_id' => array_rand(range(1, 10))
+    ];
+});
+
+/**
+ | --------------------------
+ | Criando um objeto Company
+ | --------------------------
+ */
 
 $factory->define(App\Models\Company::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_BR\Company($faker));
@@ -29,6 +61,12 @@ $factory->define(App\Models\Company::class, function (Faker\Generator $faker) {
     ];
 });
 
+/**
+ | --------------------------
+ | Criando um objeto Account
+ | --------------------------
+ */
+
 $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
     return [
         'person_id' => array_rand([1, 2, 3, 4, 5, 6, 7, 8, 9]),
@@ -36,7 +74,11 @@ $factory->define(App\Models\Account::class, function (Faker\Generator $faker) {
     ];
 });
 
-
+/**
+ | --------------------------
+ | Criando um objeto Tag
+ | --------------------------
+ */
 $factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\Lorem($faker));
     return [
@@ -45,6 +87,11 @@ $factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
 });
 
 
+/**
+ | --------------------------
+ | Criando um objeto Customer
+ | --------------------------
+ */
 $factory->define(App\Models\Customer::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\en_US\Company($faker));
     return [
@@ -53,7 +100,11 @@ $factory->define(App\Models\Customer::class, function (Faker\Generator $faker) {
     ];
 });
 
-
+/**
+ | --------------------------
+ | Criando um objeto Project
+ | --------------------------
+ */
 $factory->define(App\Models\Project::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\Internet($faker));
     return [
@@ -63,7 +114,11 @@ $factory->define(App\Models\Project::class, function (Faker\Generator $faker) {
     ];
 });
 
-
+/**
+ | --------------------------
+ | Criando um objeto Domain
+ | --------------------------
+ */
 $factory->define(App\Models\Domain::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\Internet($faker));
     return [

@@ -14,34 +14,40 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
      
 	    factory(App\Models\Person::class    , 10)->create(); 
-	    factory(App\Models\Company::class   , 10)->create(); 
-	    factory(App\Models\Account::class   , 10)->create(); 
-        factory(App\Models\Tag::class       , 10)->create();
-        factory(App\Models\Customer::class  , 10)->create();
-        factory(App\Models\Project::class   , 10)->create();
-        factory(App\Models\Domain::class    , 3)->create();
+        echo "people criadas com sucesso! \n";
 
-        foreach (['Watermark', 'Filter', 'Optimize'] as $index) {
-            DB::table('processes')->insert([
-                'name' => $index, 
-                'class' => $index,
-            ]);
-        }
-
-        DB::table('process_tag')->insert([
-            'process_id' => 1, 
-            'tag_id' => 1,
-        ]);
+        //------------------------------------------------
+	    factory(App\Models\User::class   , 10)->create(); 
         
-        DB::table('process_tag')->insert([
-            'process_id' => 1, 
-            'tag_id' => 2,
+        DB::table('users')->insert([
+            'email' => 'g.almeida.azeredo@gmail.com',
+            'login' => "azeredogab",
+            'password' => bcrypt("teste123"),
+            'person_id' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
 
-        DB::table('process_tag')->insert([
-            'process_id' => 2, 
-            'tag_id' => 3,
-        ]);
+        echo "users criadas com sucesso! \n";
 
+        //------------------------------------------------
+
+        factory(App\Models\Company::class   , 10)->create(); 
+        echo "companies criadas com sucesso! \n";
+
+	    factory(App\Models\Account::class   , 10)->create(); 
+        echo "accounts criadas com sucesso! \n";
+
+        factory(App\Models\Tag::class       , 10)->create();
+        echo "tags criadas com sucesso! \n";
+
+        factory(App\Models\Customer::class  , 10)->create();
+        echo "customers criados com sucesso! \n";
+
+        factory(App\Models\Project::class   , 10)->create();
+        echo "projects criados com sucesso! \n";
+
+        factory(App\Models\Domain::class    , 3)->create();
+        echo "domains criados com sucesso! \n";
     }
 }
