@@ -13,12 +13,6 @@ use Storage;
 class TagService
 {
 
-	/**
-	 * Filtra as tags válidas.
-	 * 
-	 * @param  string/array $tags Recebe uma string ou array de tags
-	 * @return array       Retorna um array com tags válidas. 
-	 */
 	public function filter($tags)
     {
     	if (!is_array($tags))

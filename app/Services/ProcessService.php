@@ -12,28 +12,13 @@ use App\Contracts\Processable;
 
 class ProcessService
 {
-	/**
-	 * Instância de App\Models\Process
-	 * @var [App\Models\Process]
-	 */
+
 	protected $process_model; 
 
-	/**
-	 * Instância de App\Models\Tag
-	 * @var [App\Models\Tag]
-	 */
 	protected $tag_model; 
 
-	/**
-	 * Instância de App\Models\Project
-	 * @var [App\Models\Project]
-	 */
 	protected $project_model; 
 
-	/**
-	 * Instância de App\Models\File
-	 * @var [App\Models\File]
-	 */
 	protected $file_model; 
 
 	

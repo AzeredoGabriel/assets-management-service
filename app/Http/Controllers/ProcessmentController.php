@@ -13,26 +13,15 @@ use App\Services\ProcessService,
 class ProcessmentController extends Controller
 {	
 
-	/**
-	 * Página principal do projeto.
-	 * 
-	 * @param  Request $req 
-	 * @return [view]       Retorna a view index.
-	 */
 	public function index(Request $req)
 	{
 		return view('processments.index'); 
 	}
 
 
-	/**
-	 * Página para configurações de processamento para um projeto. 
-	 * @param  Request $req 
-	 * @return [view]       Retorna a view configurations.
-	 */
 	public function configurations(Request $req)
 	{
-		return view('processments.configurations'); 
+		return view('processments.config'); 
 	}	
 
 	/**

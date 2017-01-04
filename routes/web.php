@@ -14,28 +14,23 @@
 Auth::routes();
 
 //@overwrite
-Route::get('/logout'	, ['uses' =>'Auth\LoginController@logout']);
+Route::get('/logout'							, 'Auth\LoginController@logout');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/users/images/profile/{id}/'	, ['uses' =>'UserController@profileImage']);
+	
 	Route::get('/'								, 'DashboardController@index');
+	Route::get('/users'							, 'UserController@index');
+	Route::get('/users/profile/{id}'			, 'UserController@profile');
 
 	//projects
-	Route::resource('projects'					, 'ProjectController');
+	Route::resource('/projects'					, 'ProjectController@index');
+	Route::resource('/projects/{id}'			, 'ProjectController@detail');
 
-	Route::get('/processments/'					, 'ProcessmentController@index');
-	Route::get('/processments/configurations'	, 'ProcessmentController@configurations');
+	Route::get('/processments'					, 'ProcessmentController@index');
+	Route::get('/processments/config'			, 'ProcessmentController@config');
+	
 });
 
-
-Route::group(['prefix' => 'api'], function () {
-   Route::group(['prefix' => 'v1'], function () {
-	    Route::group(['middleware' => 'auth'], function () {
-	    	// necessário autenticação 
-	    });
-	    // não é necessário autenticação
-	});
-});
 
 
 /**

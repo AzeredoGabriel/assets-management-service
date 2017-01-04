@@ -24,6 +24,17 @@ class UserController extends Controller
         return view('users.index', ['users' => User::all()]);
     }
 
+    public function profile(Request $req, $id)
+    {
+        $user = User::findOrFail($id); 
+        return view('users.profile', 
+            [
+                'user'      => $user,
+                'person'    => $user->person()->first(),
+            ]); 
+    }
+
+
     public function add(Request $request)
     {
 

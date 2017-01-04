@@ -7,10 +7,7 @@ use App\Contracts\Messager;
 //Objeto responsável por trafegar mensagens entre as classes da aplicação.
 class MessageService implements Messager
 {	
-	/**
-	 * Instância única da classe.
-	 * @var Service\Message; 
-	 */
+
 	public static $instance; 
 	
 	/**
@@ -49,10 +46,7 @@ class MessageService implements Messager
 		$this->message["alert"]		= "success";
 	}
 
-	/**
-	 * Preenche a mensagem de erro.
-	 * @param [type] $message [description]
-	 */
+
 	public function setError($message)
 	{
 		$this->message["error"] = $message; 

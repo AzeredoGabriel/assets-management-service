@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function company()
+    public function person()
     {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Models\Person');
     }
 }

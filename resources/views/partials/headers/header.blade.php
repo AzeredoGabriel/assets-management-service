@@ -1,9 +1,9 @@
 <!-- Logo -->
 <a href="index2.html" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>A</b>LT</span>
+    <span class="logo-mini"><b><i class="fa fa-rocket"></i></b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Upload Service <i class="fa fa-cloud-upload"></i></b></span>
+    <span class="logo-lg"><b>AMS</b>.io <b><i class="fa fa-rocket"></i></b></span>
 </a>
 <!-- Header Navbar -->
 <nav class="navbar navbar-static-top" role="navigation">
@@ -130,8 +130,8 @@
                     <li class="user-header">
                         <img src="AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            {{ Auth::user()->person->name }} <br> #job#
+                            <small>#data de aniversário#</small>
                         </p>
                     </li>
                     <!-- Menu Body -->
