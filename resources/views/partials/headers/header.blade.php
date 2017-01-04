@@ -13,11 +13,11 @@
     </a>
     <!-- Navbar Right Menu -->
     <div class="navbar-custom-menu">
-        <div class="navbar-form navbar-left" role="search">
+        <!-- <div class="navbar-form navbar-left" role="search">
           <div class="form-group">
               <input type="text" class="form-control" id="navbar-search-input" placeholder="Busca por projeto...">
           </div>
-        </div>
+        </div> -->
         <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
@@ -151,7 +151,7 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                         <div class="pull-left">
-                            <a href="users/profile/" class="btn btn-default btn-flat">Perfil</a>
+                            <a href="users/profile/{{ Auth::user()->id }}" class="btn btn-default btn-flat">Perfil</a>
                         </div>
                         <div class="pull-right">
                             <a href="/logout" class="btn btn-default btn-flat">Sair</a>

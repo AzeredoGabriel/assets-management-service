@@ -7,21 +7,25 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
 
-	public function __construct()
+    public $user_service; 
+
+	public function __construct(
+        UserService $user_service)
 	{
+        $this->user_service = $user_service; 
 		$this->middleware('auth');
 	}
 
     public function index(Request $request)
     {   
-       
-        return view('users.index', ['users' => User::all()]);
+        return view('users.index', ['users' => $this->user_service->getUsers() ]);
     }
 
     public function profile(Request $req, $id)
@@ -34,8 +38,13 @@ class UserController extends Controller
             ]); 
     }
 
+    public function add(Request $req)
+    {
+        return view('users.create'); 
+    }
 
-    public function add(Request $request)
+
+    public function add2(Request $request)
     {
 
         $data = null; 
