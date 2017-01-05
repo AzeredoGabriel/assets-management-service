@@ -110,7 +110,7 @@
                 </div>
             </div>
             <!-- DESCRICAO -->
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title"><b>Faça uma breve descrição sobre você</b></h3>
@@ -140,6 +140,32 @@
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- DESCRICAO -->
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><b>Foto de perfil</b></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <input type="file" name="file" id="file" class="inputfile" />
+                            <label for="file">Escolha a foto</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="box">
+                                <div class="overlay">
+                                  <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                                <div class="box-body">
+                                    <img src="img/avatar.png" alt="Sem Imagem" class="img-responsive profile-user">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

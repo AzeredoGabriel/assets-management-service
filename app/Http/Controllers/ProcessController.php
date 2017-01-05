@@ -10,7 +10,7 @@ use App\Services\ProcessService,
 	App\Services\FileService,
 	App\Services\MessageService; 
 
-class ProcessmentController extends Controller
+class ProcessController extends Controller
 {	
 
 	public function index(Request $req)

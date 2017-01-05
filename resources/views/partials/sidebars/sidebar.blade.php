@@ -3,7 +3,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="img/avatar.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>Alexander Pierce</p>
@@ -16,6 +16,19 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+         <li class="treeview">
+            <a href="projects/"><i class="fa fa-bars"></i> <span>Processamentos</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="process/"><i class="fa fa-bars"></i>Manipulação de arquivos</a></li>
+                <li><a href="process/create"><i class="fa fa-bars"></i>Criar processamento</a></li>
+                <li><a href="process/list"><i class="fa fa-plus"></i>Lista de processamentos</a></li>
+                <li><a href="process/tags"><i class="fa fa-gears"></i>Manipulação de tags</a></li>
+            </ul>
+        </li>
         <li class="treeview">
             <a href="projects/"><i class="fa fa-bars"></i> <span>Projetos</span>
               <span class="pull-right-container">
@@ -50,6 +63,7 @@
                 <li><a href="users/config/"><i class="fa fa-gears"></i>Configurar Permissões</a></li>
             </ul>
         </li>
+        <li><a href="/general/configs"><i class="fa fa-gears"></i> <span>Configurações Gerais</span></a></li>
         <li><a href="/help"><i class="fa fa-info-circle"></i> <span>Ajuda</span></a></li>
         
         <li class="header">Conta Responsável</li>        
