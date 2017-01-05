@@ -3,6 +3,7 @@
 <script src="/AdminLTE/plugins/select2/select2.min.js"></script>
 <script src="/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
 <!-- <script src="/AdminLTE/plugins/chartjs/Chart.min.js"></script> -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>

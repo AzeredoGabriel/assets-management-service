@@ -40,7 +40,7 @@
                                     <td>{{ Carbon\Carbon::parse($user->person['created_at'])->format('d/m/Y H:i') }}</td>
                                     <td>{{ Carbon\Carbon::parse($user->person['updated_at'])->format('d/m/Y H:i') }}</td>
                                     <td><a href="users/profile/{{ $user->person['id'] }}" class="btn btn-primary"><i class="fa fa-plus"></i> Detalhes</a></td>
-                                    <td><a class="btn btn-warning"><i class="fa fa-edit"></i> Alterar</a></td>
+                                    <td><a href="users/edit/{{ $user->id }}" class="btn btn-warning"><i class="fa fa-edit"></i> Alterar</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

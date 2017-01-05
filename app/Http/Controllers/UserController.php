@@ -43,6 +43,16 @@ class UserController extends Controller
         return view('users.create'); 
     }
 
+    public function edit(Request $req)
+    {
+        return view('users.edit'); 
+    }
+
+    public function config(Request $req)
+    {
+        return view('users.config'); 
+    }
+
 
     public function add2(Request $request)
     {
@@ -102,7 +112,7 @@ class UserController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit2($id)
     {
         $user = User::find($id); 
 

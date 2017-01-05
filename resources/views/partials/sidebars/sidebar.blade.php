@@ -47,10 +47,10 @@
             <ul class="treeview-menu">
                 <li><a href="users/"><i class="fa fa-bars"></i>Listar Usuários</a></li>
                 <li><a href="users/create/"><i class="fa fa-plus"></i>Adicionar Usuário</a></li>
-                <li><a href="users/permissions/"><i class="fa fa-gears"></i>Configurar Permissões</a></li>
+                <li><a href="users/config/"><i class="fa fa-gears"></i>Configurar Permissões</a></li>
             </ul>
         </li>
-        <li><a href="/help/"><i class="fa fa-info-circle"></i>Ajuda</a></li>
+        <li><a href="/help"><i class="fa fa-info-circle"></i> <span>Ajuda</span></a></li>
         
         <li class="header">Conta Responsável</li>        
         <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span><b>Inforce</b></span></a></li>

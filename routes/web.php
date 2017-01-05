@@ -21,7 +21,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/'								, 'DashboardController@index');
 	Route::get('/users'							, 'UserController@index');
 	Route::get('/users/create'					, 'UserController@add');
+	Route::get('/users/edit/{id}'				, 'UserController@edit');
 	Route::get('/users/profile/{id}'			, 'UserController@profile');
+	Route::get('/users/config'					, 'UserController@config');
 
 	//projects
 	Route::resource('/projects'					, 'ProjectController@index');
